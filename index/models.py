@@ -33,7 +33,7 @@ class Book(models.Model):
 class BookImg(models.Model):
     img_id = models.AutoField('序号', primary_key=True)
     url = models.TextField('图片源')
-    book_id = models.ForeignKey('书籍', Book, on_delete=models.CASCADE)
+    book_id = models.ForeignKey(Book, on_delete=models.CASCADE,verbose_name='书籍')
     type = models.CharField('图片类型', max_length=20)
 
 
@@ -42,8 +42,8 @@ class BrowerHistory(models.Model):
     id = models.AutoField('序号', primary_key=True)
     createDate = models.DateTimeField('首次访问时间', default=timezone.now)
     updateDate = models.DateTimeField('访问更新时间', default=timezone.now)
-    user_id = models.ForeignKey('用户', MyUser, on_delete=models.CASCADE)
-    book_id = models.ForeignKey('书籍', Book, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(MyUser, on_delete=models.CASCADE,verbose_name='用户')
+    book_id = models.ForeignKey(Book, on_delete=models.CASCADE,verbose_name='书籍')
 
 
 # 购物车
@@ -52,8 +52,8 @@ class ShoppingCart(models.Model):
     count = models.IntegerField('数量', max_length=11)
     createDate = models.DateTimeField('首次添加时间', default=timezone.now)
     updateDate = models.DateTimeField('再次添加时间', default=timezone.now)
-    user_id = models.ManyToManyField('用户', MyUser, on_delete=models.CASCADE)
-    book_id = models.ManyToManyField('书籍', Book, on_delete=models.CASCADE)
+    user_id = models.ManyToManyField(MyUser, on_delete=models.CASCADE,verbose_name='用户')
+    book_id = models.ManyToManyField(Book, on_delete=models.CASCADE,verbose_name='书籍')
 
 
 # 搜索记录
@@ -63,12 +63,13 @@ class SearchHistory(models.Model):
     count = models.IntegerField('搜素次数', max_length=11)
     createDate = models.DateTimeField('首次搜索时间', default=timezone.now)
     updateDate = models.DateTimeField('再次搜索时间', default=timezone.now)
-    user_id = models.ForeignKey('搜索用户', MyUser, on_delete=models.CASCADE)
+    user_id = models.ForeignKey( MyUser, on_delete=models.CASCADE,verbose_name='用户')
 
-#用户喜欢的书籍
+
+# 用户喜欢的书籍
 class Favorite(models.Model):
     id = models.AutoField('序号', primary_key=True)
     createDate = models.DateTimeField('首次喜欢时间', default=timezone.now)
     updateDate = models.DateTimeField('再次喜欢时间', default=timezone.now)
-    user_id = models.ManyToManyField('用户', MyUser, on_delete=models.CASCADE)
-    book_id = models.ManyToManyField('书籍', Book, on_delete=models.CASCADE)
+    user_id = models.ManyToManyField(MyUser, on_delete=models.CASCADE,verbose_name='用户')
+    book_id = models.ManyToManyField(Book, on_delete=models.CASCADE,verbose_name='书籍')

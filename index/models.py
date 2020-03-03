@@ -40,6 +40,7 @@ class BookImg(models.Model):
 # 浏览记录
 class BrowerHistory(models.Model):
     id = models.AutoField('序号', primary_key=True)
+
     createDate = models.DateTimeField('首次访问时间', default=timezone.now)
     updateDate = models.DateTimeField('访问更新时间', default=timezone.now)
     user_id = models.ForeignKey(MyUser, on_delete=models.CASCADE,verbose_name='用户')
